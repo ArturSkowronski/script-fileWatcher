@@ -3,7 +3,12 @@ var path = require('path');
 var mv = require('mv');
 var fs = require('fs');
 
-console.log("run");
+
+var parsedJSON = require('./watcher_config.json');
+
+console.log(parsedJSON);
+
+
 
 watch.watchTree('C:/bin', function (f, curr, prev) {
     if (typeof f == "object" && prev === null && curr === null) {
@@ -21,7 +26,7 @@ watch.watchTree('C:/bin', function (f, curr, prev) {
     } else {
       console.log("edit");
       if(ext==".avi"){
-			fs.rename(path.normalize(f), "C://bin//test//"+path.basename(f),function(er){
+			fs.rename(path.normalize(function() {};), "C://bin//test//"+path.basename(f),function(er){
 				console.log(er)
 			});
 

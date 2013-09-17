@@ -1,0 +1,12 @@
+[
+	{
+		folder: "C:/bin",
+		filter: {
+			extension: ".avi"
+		},
+		action: {
+			type:"move",
+			destination: "C:/bin/test"
+			}
+	}
+]
