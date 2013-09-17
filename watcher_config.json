@@ -1,12 +1,16 @@
 [
-	{
-		folder: "C:/bin",
-		filter: {
-			extension: ".avi"
-		},
-		action: {
-			type:"move",
-			destination: "C:/bin/test"
-			}
-	}
+    {
+        "folder": "C:/bin/test/",
+        "action": [
+            {
+                "type": "move",
+                "destination": "C:/bin/result/",
+                "filter": [
+                    {
+                        "extension": ".avi"
+                    }
+                ]
+            }
+        ]
+    }
 ]

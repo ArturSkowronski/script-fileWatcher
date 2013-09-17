@@ -5,31 +5,36 @@ var fs = require('fs');
 
 
 var parsedJSON = require('./watcher_config.json');
-
-console.log(parsedJSON);
-
-
-
-watch.watchTree('C:/bin', function (f, curr, prev) {
-    if (typeof f == "object" && prev === null && curr === null) {
-      console.log("end");
-    } else if (prev === null) {
-    	var ext=path.extname(f);
-    	if(ext==".avi"){
-			fs.rename(path.normalize(f), "C://bin//test//"+path.basename(f),function(er){
-				console.log(er)
+parsedJSON.forEach(function(entry) {
+	watch.watchTree(entry.folder, function (f, curr, prev) {
+		if (typeof f == "object" && prev === null && curr === null) {
+		}
+		else if (prev === null) {
+			entry.action.forEach(function(entryA) {
+				if(entryA.type="move"){
+					moveFile(f,entryA.filter,entryA.destination);
+				}
 			});
+		}
+		else if (curr.nlink === 0) {
+		  //console.log("delete");
+		} else {
+		  //console.log("edit");
+		}
+	})
+});
 
-    	} 
-    } else if (curr.nlink === 0) {
-      console.log("delete");
-    } else {
-      console.log("edit");
-      if(ext==".avi"){
-			fs.rename(path.normalize(function() {};), "C://bin//test//"+path.basename(f),function(er){
-				console.log(er)
+
+function moveFile(f,filters,destination){
+	var ext=path.extname(f);
+	filters.forEach(function(filter) {
+		if(ext==filter.extension){
+				console.log('Wykryto plik '+path.normalize(f));
+				fs.rename(path.normalize(f), destination + path.basename(f),function(er){
+					if(er){}
+    				else
+  				console.log('Przeniesiono plik '+path.normalize(f)+' do '+destination + path.basename(f)	);
 			});
-
-    	} 	
-    }
-  })
+		}
+	});
+}
